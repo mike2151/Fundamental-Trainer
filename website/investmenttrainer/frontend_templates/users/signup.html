@@ -1,0 +1,36 @@
+{% include "base.html" %}
+{% load static %}
+
+{% block css_imports %}
+<link href="{% static 'users/signup.css' %}" rel="stylesheet">
+<link href="{% static 'form.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+
+<div class="form-body">
+    {% if error_messages %}
+        {{error_messages}}
+    {% endif %}
+    <form class="site-form" method="post">
+      {% csrf_token %}
+     
+      <h1 class="">SIGN UP</h1>
+      <p class="">Already have an account? <a href="/login">Login here</a></p>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required autofocus><br />
+      <label for="email">First Name</label>
+      <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name" required maxlength="32"><br />
+      <label for="email">Last Name</label>
+      <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name" required maxlength="32"><br />
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control" placeholder="Password" required><br />
+      <label for="password2">Confirm Password</label>
+      <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password" required> <br>
+      <button class="btn btn-lg btn-primary btn-block form-block" type="submit">Sign Up</button>
+      <br/>
+      <p class="signing-up">By clicking Sign Up, you agree to our <a href="/terms_conditions">terms and conditions</a></p>
+    </form>
+</div>
+
+{% endblock %}

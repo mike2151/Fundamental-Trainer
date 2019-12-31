@@ -1,8 +1,16 @@
 {% extends "base.html" %}
-
+{% load static %}
 {% block css_imports %}
+<link href="{% static 'info/home.css'%}" rel="stylesheet">
 {% endblock %}
 
 {% block content%}
-    hi
+    <div class="landing-section">
+        <h1 class="title">Investment Trainer</h1>
+        {% if user.is_authenticated %}
+            <a href="/dashboard" class="action">Go To Dashboard</a>
+        {% else %}
+            <a href="/signup" class="action">Signup</a>
+        {% endif %}
+    </div>
 {% endblock %}
