@@ -1,0 +1,168 @@
+import os
+import random
+import json
+from notable_stock import NotableStock
+import shutil
+import argparse
+import sys
+
+
+PROCESSED_STOCKS_FILE_NAME = "processed_stocks.json"
+
+def get_nasdaq_other_tickers():
+    file_path = os.path.join(os.getcwd(), "stock_sources/otherlisted.txt")
+    stock_tickers = []
+    with open(file_path, "r") as listed_file:
+        lines = listed_file.readlines()
+        for line in lines[1:]:
+            stock_ticker = line.split("|")[0]
+            stock_tickers.append(stock_ticker)
+    return stock_tickers
+
+
+def get_nasdaq_tickers():
+    file_path = os.path.join(os.getcwd(), "stock_sources/nasdaq.txt")
+    stock_tickers = []
+    with open(file_path, "r") as listed_file:
+        lines = listed_file.readlines()
+        for line in lines[1:]:
+            stock_ticker = line.split("|")[0]
+            stock_tickers.append(stock_ticker)
+    return stock_tickers
+
+def get_nyse_tickers():
+    file_path = os.path.join(os.getcwd(), "stock_sources/nyse_csv.csv")
+    stock_tickers = []
+    with open(file_path, "r") as listed_file:
+        csv_reader = csv.reader(listed_file, delimiter=",")
+        next(csv_reader)
+        for row in csv_reader:
+            stock_tickers.append(row)
+    return stock_tickers
+
+def has_ticker_been_processed(ticker):
+    with open(os.path.join(os.getcwd(), "PROCESSED_STOCKS_FILENAME"), "r") as processed_stocks_file:
+        json_file = json.loads(processed_stocks_file.read())
+        return str(ticker.upper()) in json_file
+
+def mark_ticker_processed(ticker):
+    current_json = {}
+    with open(os.path.join(os.getcwd(), PROCESSED_STOCKS_FILE_NAME), "r") as processed_stocks_file:
+        file_content = processed_stocks_file.read()
+        if len(file_content) == 0:
+            file_content = "{}"
+        current_json = json.loads(file_content)
+        processed_stocks_file.close()
+
+    current_json[ticker] = True
+    with open(os.path.join(os.getcwd(), PROCESSED_STOCKS_FILE_NAME), "w") as write_file:
+        write_file.write(json.dumps(current_json))
+        write_file.close()
+
+
+def get_new_ticker():
+    all_list_of_tickers = []
+    nasdaq_tickers = get_nasdaq_tickers()
+    other_tickers = get_nasdaq_other_tickers()
+    nyse_tickers = get_nyse_tickers()
+
+    all_list_of_tickers.append(nasdaq_tickers)
+    all_list_of_tickers.append(other_tickers)
+    all_list_of_tickers.append(nyse_tickers)
+
+    random_ticker = ""
+    while True:
+        random_ticker = random.choice(random.choice(all_list_of_tickers))
+        if not has_ticker_been_processed(random_ticker):
+            break
+    return random_ticker
+
+if __name__ == "__main__":
+    if (len(sys.argv) != 4):
+        print("USE THE FOLLOWING FLOW:")
+        print("python3 make_challenges label num_days threshold")
+        print("EXAMPLE")
+        print("python3 make_challenges '1 Year' 270 .7")
+        sys.exit()
+    label = sys.argv[1]
+    num_days = int(sys.argv[2])
+    threshold = float(sys.argv[3])
+
+
+    ticker = get_new_ticker()
+    notable_stock_obj = NotableStock(ticker, num_days, threshold)
+    if not notable_stock_obj.is_stock_notable():
+        quit()
+
+    # make folders and corresponding for each moment
+    subfolders = ["statements", "historic_data", "info"]
+    if not os.path.isdir(os.path.join(os.getcwd(), "stocks/" + label)):
+        os.mkdir(os.path.join(os.getcwd(), "stocks/" + label))
+    stock_path = os.path.join(os.getcwd(), "stocks/" + label + "/" + str(ticker))
+    os.mkdir(stock_path)
+    for moment in notable_stock_obj.get_notable_moments_date():
+        ticker_date_path = os.path.join(stock_path, moment)
+        os.mkdir(ticker_date_path)
+        # sub directories
+        for sub_dir in subfolders:
+            new_path = os.path.join(ticker_date_path, sub_dir)
+            os.mkdir(new_path)
+
+    #
+    # GET THE DATA AND WRITE
+    #
+
+    moments_to_delete = []
+    any_stocks_downloaded = False
+    for moment in notable_stock_obj.get_notable_moments_date():
+        moment_idx = notable_stock_obj.get_notable_moments_date().index(moment)
+
+        base_dir = os.path.join(stock_path, moment)
+
+        # financial documents
+        num_files = notable_stock_obj.get_recent_financial_documents_for_date(moment, label)
+        if num_files == 0:
+            moments_to_delete.append(moment)
+            continue
+        else:
+            any_stocks_downloaded = True
+
+        # go through each file and change to html
+        statements_dir = os.path.join(base_dir, "statements")
+        for subdir, dirs, files in os.walk(statements_dir):
+            for file in files:
+                if file.endswith(".txt"):
+                    renamee = os.path.join(subdir, file)
+                    pre, ext = os.path.splitext(renamee)
+                    os.rename(renamee, pre + ".html")
+
+        # historic data
+        historic_data = notable_stock_obj.get_past_n_days_historic(moment, 1000)
+        write_file_path = os.path.join(base_dir, "historic_data/historic_data.csv")
+        with open(write_file_path, "w") as write_file:
+            write_file.write(historic_data.to_csv(index=True))
+            write_file.close()
+
+        # info
+        write_file_path = os.path.join(base_dir, "info/info.json")
+        info = {}
+        info["name"] = notable_stock_obj.get_company_name()
+        info["ticker"] = ticker
+        info["description"] = notable_stock_obj.get_company_description()
+        info["result"] = notable_stock_obj.get_notable_moments_results()[moment_idx]
+        info["percent_result"] = notable_stock_obj.get_notable_moments_percent()[moment_idx]
+        info["industry"] = notable_stock_obj.get_company_industry()
+        info["sector"] = notable_stock_obj.get_company_sector()
+        with open(write_file_path, "w") as write_file:
+            write_file.write(json.dumps(info))
+            write_file.close()
+
+    # delete folders which are of no use
+    for moment in moments_to_delete:
+        folder_to_remove = os.path.join(stock_path, moment)
+        shutil.rmtree(folder_to_remove)
+
+    if not any_stocks_downloaded:
+        shutil.rmtree(stock_path)
+
+    mark_ticker_processed(ticker)
