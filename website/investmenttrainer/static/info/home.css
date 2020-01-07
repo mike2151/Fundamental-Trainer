@@ -1,0 +1,137 @@
+body {
+    background: url(/static/images/bg.svg);
+    background-color: repeat;
+    overflow-x: hidden;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+.page-body {
+    min-height: 85vh;
+}
+
+.title {
+    font-size: 4em;
+}
+
+.secondary-title {
+    font-size: 1.7em;
+}
+
+.description {
+    font-size: 1.2em;
+}
+
+.icon {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+.title-first {
+    color: #6CC551;
+}
+
+.title-second {
+    color: #DB2B39;
+}
+
+.landing-section {
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+    margin-top: 10vh;
+    max-width: 85vw;
+    background: #FFF;
+    padding: 4em;
+    border-radius: 20px;
+}
+
+.action-first {
+    background-color: #DB2B39; 
+    border-color: #DB2B39; 
+}
+
+.action-second {
+    background-color: #6CC551;
+    border-color: #6CC551;
+}
+
+.main-section {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.content-tabs {
+    font-size: 1.7em;
+    font-weight: bold;
+    margin-top: 4vh;
+}
+
+
+.tab-content {
+    padding: 1.4em;
+    background: #EDF0FC;
+    font-size: 1.3em;
+    min-width: 80vw; 
+}
+
+.section-link {
+    border-top: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+}
+
+.section-link.active {
+    border-bottom: 1px solid #EF8354 !important;
+    border-top: 0 !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+    color: #EF8354 !important;
+    background: #FFF !important;
+}
+
+.btn-xl {
+    margin: .4em;
+    padding: .7em .9em;
+    font-size: 1.6em;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
+.screenshot {
+    border: 1px solid #000;
+}
+
+.features-icon {
+    color: #357DED;
+}
+
+.features-title {
+    font-size: 1.3em;
+}
+
+.stats-label {
+
+}
+
+.stats-number {
+
+}
+
+@media only screen and (max-width: 1000px) {
+    .landing-section {
+        max-width: 95vw;
+    }
+    .screenshot {
+        display: none;
+    }
+}
+

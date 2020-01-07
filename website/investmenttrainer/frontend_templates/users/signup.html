@@ -1,36 +1,44 @@
-{% include "base.html" %}
-{% load static %}
+{% extends "base.html" %}
 
+{% load static %}
 {% block css_imports %}
 <link href="{% static 'users/signup.css' %}" rel="stylesheet">
-<link href="{% static 'form.css' %}" rel="stylesheet">
 {% endblock %}
 
-{% block content %}
 
+{% block content %}
+<center>
 <div class="form-body">
-    {% if error_messages %}
-        {{error_messages}}
-    {% endif %}
     <form class="site-form" method="post">
       {% csrf_token %}
-     
-      <h1 class="">SIGN UP</h1>
-      <p class="">Already have an account? <a href="/login">Login here</a></p>
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" class="form-control" placeholder="Email Address" required autofocus><br />
-      <label for="email">First Name</label>
-      <input type="text" id="first_name" name="first_name" class="form-control" placeholder="First Name" required maxlength="32"><br />
-      <label for="email">Last Name</label>
-      <input type="text" id="last_name" name="last_name" class="form-control" placeholder="Last Name" required maxlength="32"><br />
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" class="form-control" placeholder="Password" required><br />
-      <label for="password2">Confirm Password</label>
-      <input type="password" id="password2" name="password2" class="form-control" placeholder="Confirm Password" required> <br>
-      <button class="btn btn-lg btn-primary btn-block form-block" type="submit">Sign Up</button>
+      <h1 class="form-title">SIGN UP</h1>
+        {% if error_messages %}
+          <div class="alert alert-danger" role="alert">
+              Error Signing Up: <br /><br />
+              <ul style="list-style-type: none">
+                {% for error_message in error_messages %} 
+                  <li>{{ error_message }}</li>
+                {% endfor %}
+              </ul>
+          </div>
+        {% endif %}
+      <p class="form-label">Already have an account? <a href="/login">Login here</a></p>
+
+      <label class="form-label" for="email">Email Address</label>
+
+      <input type="email" id="email" name="email" class="form-control form-field" placeholder="Email Address" required autofocus><br />
+      <label class="form-label" for="email">First Name</label>
+      <input type="text" id="first_name" name="first_name" class="form-control form-field" placeholder="First Name" required maxlength="32"><br />
+      <label class="form-label" for="email">Last Name</label>
+      <input type="text" id="last_name" name="last_name" class="form-control form-field" placeholder="Last Name" required maxlength="32"><br />
+      <label class="form-label" for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control form-field" placeholder="Password" required><br />
+      <label class="form-label" for="password2">Confirm Password</label>
+      <input type="password" id="password2" name="password2" class="form-control form-field" placeholder="Confirm Password" required> <br>
+      <button class="btn btn-lg btn-primary btn-block form-block form-button form-field" type="submit">Sign Up</button>
       <br/>
-      <p class="signing-up">By clicking Sign Up, you agree to our <a href="/terms_conditions">terms and conditions</a></p>
+      <p class="form-label">By clicking Sign Up, you agree to our <a href="/terms_conditions">terms and conditions</a></p>
     </form>
 </div>
-
+</center>
 {% endblock %}

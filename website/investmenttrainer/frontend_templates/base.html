@@ -8,15 +8,75 @@
         <meta name="author" content="">
 
         <title>Investment Trainer</title>
-
-        <link ref="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
-
+        
+          <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <link href="{% static 'base/base.css' %}" rel="stylesheet">
         {% block css_imports %}
         {% endblock %}
     </head>
     <body>
+      <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top base_navbar">
+          <div class="container-fluid">
+            <a class="navbar-brand brand-section" href="/"><img src="{% static 'images/icon.png' %}" width="24" height="24" style="margin-right: .3vw; margin-bottom: .5vh;">Investment Trainer</a>
+            <button class="navbar-toggle navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon icon-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+              <ul class="navbar-nav ml-auto" style="margin-left: 20vw">
+                {% if user.is_authenticated %}
+                  <li class="nav-item">
+                      <a class="nav-link top-item" href="/dashboard">Dashboard</a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle top-item" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {{ user.first_name }}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="/account">Manage Account</a>
+                    </div>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link top-item" href="/logout">Logout</a>
+                  </li>
+                {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link top-item" href="/about" >About</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link top-item" href="/login" >Login</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link top-item" href="/signup" >Sign Up</a>
+                  </li>
+                {% endif %}
+                
+              </ul>
+            </div>
+          </div>
+    </nav>
+    <div class="page-body">
         {% block content %}
         {% endblock %}
+    </div>
+    <footer class="bg-dark footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 mb-12">
+            <p class="footer-items">
+              <a href="/" class="footer-item">Home</a>
+              <a href="/about" class="footer-item">About</a>
+              <a href="/about/#contact_us" class="footer-item">Contact Us</a>
+              <a href="/terms_conditions" class="footer-item">Terms and Conditions</a>
+            </p>
+            <p class="footer-title">Investment Trainer</p>
+            <p class="copyright">&copy; <script>new Date().getFullYear()>document.write(new Date().getFullYear());</script></p>
+          </div>
+        </div>
+      </div>
+    </footer>
     </body>
 </html>
 

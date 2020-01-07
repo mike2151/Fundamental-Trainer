@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+{% load index %}
+{% load url_to_str %}
+{% load fraction %}
+{% block css_imports %}
+<link href="{% static 'dashboard/dashboard.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="row">
+        <div class="col-md-12 challenges-section">
+            <h1 class="section-title">CHALLENGES</h1>
+            <ul class="challenges">
+                {% for challenge_type in challenge_types %}
+                <div class="card challenge-card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{challenge_type}} Forecasting Challenges</h5>
+                        <p class="card-text">Analyze the state of a security at a given time and make a forecasting decision if the price of the security will go up or down.</p>
+                        <a href="/challenge/{{challenge_types_url|index:forloop.counter0}}/next_challenge" class="btn btn-primary btn-complete">Complete</a>
+                     </div>
+                </div>
+                {% endfor %}
+            </ul>
+            <hr>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 stats-section">
+            <h1 class="section-title">STATS</h1>
+            {% for key, value in stats.items %}
+                <h4 class="stats-title">{{key|url_to_str}} Forecasting Challenge</h4>
+                <div class="progress stats-progress">
+                    <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="{{value.correct|add:value.incorrect}}"></div>
+                    <div class="progress-bar bg-success" role="progressbar" style="width: {{ value.correct|fraction:value.incorrect }}%" aria-valuenow="{{value.correct}}" aria-valuemin="0" aria-valuemax="{{value.correct|add:value.incorrect}}">{{value.correct}} correct</div>
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{ value.incorrect|fraction:value.correct }}%" aria-valuenow="{{value.incorrect}}" aria-valuemin="0" aria-valuemax="{{value.correct|add:value.incorrect}}">{{value.incorrect}} incorrect</div>
+                </div><br>
+            {% endfor %}
+        </div>
+        <div class="col-md-6 history-section">
+            <h1 class="section-title">HISTORY</h1>
+            {% for key, value in history.items %}
+                <h4 class="stats-title">{{key|url_to_str}} Forecasting Challenge</h4>
+                <ul class="history-list">
+                    {% for entry in value %}
+                    <li>Challenge: {{entry.name}} <br> Result: {% if entry.correct %}<span class="correct"> Correct </span> {% else %} <span class="incorrect">Incorrect </span> {% endif %}<a href="/challenge/{{entry.id}}">View Challenge</a></li><br>
+                    {% endfor %}
+                </ul>
+                <hr>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

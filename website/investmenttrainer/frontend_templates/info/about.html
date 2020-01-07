@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_imports %}
+<style>
+body {
+    background: url(/static/images/bg.svg);
+    background-color: repeat;
+    overflow-x: hidden;
+}
+</style>
+{% endblock %}
+
+{% block content%}
+    <div class="template-page-section">
+        <h1 class="template-title" id="about">About</h1><br>
+        <div class="template-main-section">
+            <p class="template-text">Investment Trainer believes in providing an opportunity so individuals can become better at fundamental analysis. In investing, one can make investment decisions through fundamental or technical analysis. Technical analysis involves looking at indicators of a security such as price, volume, and moving averages. Fundamental analysis focuses on making an investment decision by considering the company itself, competitive advantages,
+            recent performance and other busisness aspects.Although technical analysis is helpful, we believe that there is an abundance of online websites and tools that will help an individual
+            become better at fundamental analysis. However, the same cannot said for fundamental analysis. It appears that the only way to improve in fundamental analysis is to practice looking at securities and making decisions about buying or selling. Then, one has to wait months to years to learn if they were correct. We believe this process is too slow and by creating an online platform to practice fundamental analysis, individuals can become better fundamental analysis
+            investors. </p> 
+        </div>
+        <h1 class="template-title" id="contact-us">Contact Us</h1><br>
+        <div class="template-main-section">
+            <p class="template-text"> For any inquiries, feedback, questions or issues please email us at <a href = "mailto: support@investmenttrainer.com">support@investmenttrainer.com</a></p>
+        </div>
+    </div>
+{% endblock %}

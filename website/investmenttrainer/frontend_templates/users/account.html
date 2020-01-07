@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_imports %}
+<link href="{% static 'users/login.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<center>
+<div class="form-body">
+    <form class="site-form" method="post">
+      {% csrf_token %}
+      <h1 class="form-title">YOUR ACCOUNT</h1>
+        {% if message|length > 0 %}
+        {% if message_color == 'red' %}
+          <div class="alert alert-warning" role="alert">
+            {{ message }}
+          </div>
+        {% else %}
+        <div class="alert alert-success" role="alert">
+          {{ message }}
+        </div>
+        {% endif %}
+      {% endif %}
+      <label class="form-label" for="email">Email Address</label>
+      <input type="email" id="email" name="email" class="form-control form-field" value="{{user.email}}" disabled><br />
+      <label class="form-label" for="first_name">First Name</label>
+      <input type="text" id="first_name" name="first_name" class="form-control form-field" value="{{user.first_name}}"><br />
+      <label class="form-label" for="last_name">Last Name</label>
+      <input type="text" id="last_name" name="last_name" class="form-control form-field" value="{{user.last_name}}"><br />
+
+      <br /><br />
+      <button class="btn btn-lg btn-primary btn-block form-block form-button form-field" type="submit">Update Account</button><br />
+      <a class="btn btn-lg btn-success btn-block form-block form-field" type="submit" style="color: #FFF;" href="/password/password_reset">Reset Password</a><br />
+      <a class="btn btn-lg btn-danger btn-block form-block form-field" type="submit" style="color: #FFF;" href="/account/delete">Delete Account</a><br />
+    </form>
+</div>
+</center>
+{% endblock %}

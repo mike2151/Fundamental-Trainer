@@ -2,15 +2,105 @@
 {% load static %}
 {% block css_imports %}
 <link href="{% static 'info/home.css'%}" rel="stylesheet">
+<link media="all" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 {% endblock %}
 
 {% block content%}
     <div class="landing-section">
-        <h1 class="title">Investment Trainer</h1>
+        <h1 class="title"><span class="title-first">Investment</span> <span class="title-second">Trainer</span></h1>
+            <div class="main-section">
+                <ul class="nav nav-tabs justify-content-center content-tabs" id="sections" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link section-link active" id="overview" data-toggle="tab" href="#overview-content" role="tab" aria-controls="overview-content" aria-selected="true">Overview</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link section-link" id="features" data-toggle="tab" href="#features-content" role="tab" aria-controls="features-content" aria-selected="false">Features</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link section-link" id="stats" data-toggle="tab" href="#stats-content" role="tab" aria-controls="stats-content" aria-selected="false">Stats</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link section-link" id="works" data-toggle="tab" href="#works-content" role="tab" aria-controls="works-content" aria-selected="false">How It Works</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="overview-content" role="tabpanel"  aria-labelledby="overview">
+                        <p class="secondary-title">Investment Trainer gives you the opportunity to get better at Fundamental Analysis</p><br>
+                        <p class="description">By going through history, we generate challenges to analyze a security and make a forecasting decision</p><br>
+                        <img class="center screenshot" src="{% static 'images/screenshot.jpg'%}">
+                    </div>
+                    <div class="tab-pane fade" id="features-content" role="tabpanel"  aria-labelledby="features">
+                        <div class="row">
+                            <div class="col-md-6 center">
+                                <i class="fa fa-database fa-5x features-icon"></i>
+                                <p class="features-title">Detailed Challenges</p>
+                                <p class="features-text">Our challenge expierence gives you the opportunity to look at overviews, historic data, technicals, and financial documents to complete each challenge.</p>
+                            </div>
+                            <div class="col-md-6 center">
+                                <i class="fa fa-book fa-5x features-icon"></i>
+                                <p class="features-title">Lots of Challenges</p>
+                                <p class="features-text">We have many challenges and time periods to give you strong fundamental analysis expierence.</p>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 center">
+                                <i class="fa fa-columns fa-5x features-icon"></i>
+                                <p class="features-title">Rich Dashboard</p>
+                                <p class="features-text">Our dashboard allows you to view different types of challenges along with your previous forecasting decisions.</p>
+                            </div>
+                            <div class="col-md-6 center">
+                                <i class="fa fa-calculator fa-5x features-icon"></i>
+                                <p class="features-title">Statistics</p>
+                                <p class="features-text">View statistics about your performance and learn about your strengths and weaknesses.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="stats-content" role="tabpanel"  aria-labelledby="stats">
+                        <div class="row">
+                            <div class="col-md-6 center">
+                                <h3 class="stats-number">{{stats_questions}}</h2>
+                                <h4 class="stats-label">Questions</h4>
+                            </div>
+                            <div class="col-md-6 center">
+                                <h3 class="stats-number">{{stats_challenges}}</h2>
+                                <h4 class="stats-label">Challenge Types</h4>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 center">
+                                <h3 class="stats-number">{{stats_securities}}</h2>
+                                <h4 class="stats-label">Securities</h4>
+                            </div>
+                            <div class="col-md-6 center">
+                                <h3 class="stats-number">{{stats_minutes}}</h2>
+                                <h4 class="stats-label">Estimated Minutes of Challenges</h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="works-content" role="tabpanel"  aria-labelledby="works">
+                        <p>To get started completing challenges,</p>
+                        <ol>
+                            <li><a href="/signup">Make an account</a></li>
+                            <li>Navigate to the dashboard</li>
+                            <li>Choose your challenge type</li>
+                            <li>For each challenge, </li>
+                            <ol type="a">
+                                <li>Read the overview, historical data, technicals and documents</li>
+                                <li>You can skip the challenge if you choose by going to the dashboard or clicking the skip button</li>
+                                <li>Otherwise, make your forecasting prediction</li>
+                                <li>Find out about the actual result</li>
+                            </ol>
+                        </ol>
+                    </div>
+               </div>
+            </div><br>
         {% if user.is_authenticated %}
-            <a href="/dashboard" class="action">Go To Dashboard</a>
+            <a href="/dashboard" class="btn btn-xl btn-success action-second">Go To Dashboard &uarr;</a>
         {% else %}
-            <a href="/signup" class="action">Signup</a>
+            <a href="/login" class="btn btn-xl btn-danger action-first">Login &darr;</a>
+            <a href="/signup" class="btn btn-xl btn-success action-second">Signup &uarr;</a>
         {% endif %}
     </div>
 {% endblock %}

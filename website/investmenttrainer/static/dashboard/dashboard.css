@@ -1,0 +1,92 @@
+body {
+    background-image: url(/static/images/bg.svg);
+    -ms-overflow-style: none;
+    scrollbar-width: none; 
+}
+
+body::-webkit-scrollbar { 
+    display: none;  
+}
+
+hr {
+    color: #CCCCCC;
+}
+
+.btn-complete {
+    background-color: #357DED;
+}
+
+.challenge-card {
+    width: 18rem;
+}
+
+.section-title {
+    border-bottom: 3px solid #357DED;
+    max-width: 30vw;
+    padding-bottom: 2vh;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 3vh;
+    margin-top: 1vh;
+    text-align: center;
+}
+
+.dashboard {
+    max-width: 95vw;
+    padding: 1em;
+    background: #FFF;
+    border-radius: 20px;
+    margin-top: 8vh;
+    margin-bottom: 2vh;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
+    background: #F7F8FC;
+}
+
+.stats-section {
+    border-right: 1px solid #ccc;
+}
+
+.stats-title {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+}
+
+.stats-progress {
+    height: 2em;
+    font-size: 1.5em;
+}
+
+.history-section {
+    border-left: 1px solid #ccc;
+}
+
+.history-list {
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    display: block;
+    text-align: center;
+    font-size: 1.2em;
+    list-style-type: none;
+}
+
+.correct {
+    color: #6CC551;
+    font-weight: bold;
+}
+
+.incorrect {
+    color: #DB2B39;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 1000px) {
+    .section-title {
+        max-width: 90vw;
+    }
+}

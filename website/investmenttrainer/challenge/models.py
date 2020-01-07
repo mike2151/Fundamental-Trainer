@@ -15,12 +15,21 @@ class Challenge(models.Model):
     def upload_path_handler(instance, filename):
         return "{id}/{file}".format(id=instance.pk, file=filename)
 
+    # website data
+    is_premium = models.BooleanField(default=False)
+
+    # challenge data
     stock_name = models.CharField(max_length=512)
     stock_ticker = models.CharField(max_length=12)
+    stock_industry = models.CharField(max_length=256)
+    stock_sector = models.CharField(max_length=256)
+    time_label_full = models.CharField(max_length=16)
+    time_label_url = models.CharField(max_length=16)
     stock_description = models.TextField()
     window_date = models.DateTimeField()
     id = models.BigIntegerField(primary_key=True, default=make_pk)
     result = models.BooleanField()
+    result_amount_percent = models.CharField(max_length=16)
     historic_data = models.TextField()
 
     # financial files

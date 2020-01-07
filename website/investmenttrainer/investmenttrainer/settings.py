@@ -25,8 +25,8 @@ SECRET_KEY = '^!q=qe@n1erl)@o!hyk+2rjrsx%w&1#ub6raw6&w^@ynghqh_%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 MEDIA_ROOT = os.path.join(BASE_DIR, "challenges_folder")
 MEDIA_URL = "/files/"
 # Application definition
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'challenge',
     'django_cleanup',
     'info',
-    'user'
+    'user',
+    'dashboard'
 ]
 
 MIDDLEWARE = [
@@ -128,7 +129,19 @@ LOGOUT_REDIRECT_URL = '/'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+]
+
 STATIC_URL = '/static/'
 
 if DEBUG:
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_USE_TLS = True
+    EMAIL_HOST = 'smtp.sendgrid.net'
+    EMAIL_HOST_USER = 'apikey'
+    EMAIL_HOST_PASSWORD = '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'
+    EMAIL_PORT = 587
+    DEFAULT_FROM_EMAIL = 'support@encompassinterviews.com'
+

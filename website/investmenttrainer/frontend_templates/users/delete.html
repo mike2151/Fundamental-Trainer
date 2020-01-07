@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_imports %}
+<link href="{% static 'users/login.css' %}" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<center>
+<div class="form-body">
+    <form class="site-form" method="post">
+      {% csrf_token %}
+      <h1 class="form-title">DELETE ACCOUNT</h1>
+      <p class="form-label">Are you sure you want to delete your account</p>
+      <button class="btn btn-lg btn-danger btn-block form-block form-field" type="submit">Delete My Account</button><br />
+    </form>
+</div>
+</center>
+{% endblock %}

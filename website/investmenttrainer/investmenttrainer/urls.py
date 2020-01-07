@@ -21,5 +21,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("info.urls")),
-    path('signup/', include('user.sign_up_urls'),)
+    path('password/', include('django.contrib.auth.urls')),
+    path('signup/', include('user.sign_up_urls')),
+    path('login/', include('user.login_urls')),
+    path('logout/', include('user.logout_urls')),
+    path('account/', include('user.account_urls')),
+    path('dashboard/', include('dashboard.urls')),
+    path('challenge/', include('challenge.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
