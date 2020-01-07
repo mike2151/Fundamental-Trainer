@@ -25,10 +25,13 @@ SECRET_KEY = '^!q=qe@n1erl)@o!hyk+2rjrsx%w&1#ub6raw6&w^@ynghqh_%'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['fundamentaltrainer.com', 'www.fundamentaltrainer.com', 'localhost', '127.0.0.1']
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 MEDIA_ROOT = os.path.join(BASE_DIR, "challenges_folder")
 MEDIA_URL = "/files/"
+
+SILENCED_SYSTEM_CHECKS = ['urls.W002', 'security.W019']
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -42,7 +45,13 @@ INSTALLED_APPS = [
     'django_cleanup',
     'info',
     'user',
-    'dashboard'
+    'dashboard',
+    'axes'
+]
+
+AUTHENTICATION_BACKENDS = [
+    'axes.backends.AxesBackend',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'axes.middleware.AxesMiddleware',
 ]
 
 ROOT_URLCONF = 'investmenttrainer.urls'
@@ -81,13 +91,24 @@ AUTH_USER_MODEL = 'user.SiteUser'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
+    }
+else:
+    DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'fundamental',
+        'USER': 'fundamental_user',
+        'PASSWORD': 'mikey215!',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -122,9 +143,56 @@ USE_L10N = True
 USE_TZ = True
 
 
+if not DEBUG:
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': True,
+        'formatters': {
+            'standard': {
+                'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] %(message)s",
+                'datefmt' : "%d/%b/%Y %H:%M:%S"
+            },
+        },
+        'handlers': {
+            'null': {
+                'level':'DEBUG',
+                'class':'logging.NullHandler',
+            },
+            'logfile': {
+                'level':'DEBUG',
+                'class':'logging.handlers.RotatingFileHandler',
+                'filename': "/home/django/fundamentaltrainer/logfile",
+                'maxBytes': 50000,
+                'backupCount': 2,
+                'formatter': 'standard',
+            },
+            'console':{
+                'level':'INFO',
+                'class':'logging.StreamHandler',
+                'formatter': 'standard'
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers':['console', 'logfile'],
+                'propagate': True,
+                'level':'WARN',
+            },
+            'django.db.backends': {
+                'handlers': ['console'],
+                'level': 'WARN',
+                'propagate': False,
+            },
+        }
+    }
+
+
+
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
+AXES_COOLOFF_TIME = 5
+AXES_FAILURE_LIMIT = 10
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -143,5 +211,5 @@ else:
     EMAIL_HOST_USER = 'apikey'
     EMAIL_HOST_PASSWORD = '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'
     EMAIL_PORT = 587
-    DEFAULT_FROM_EMAIL = 'support@encompassinterviews.com'
+    DEFAULT_FROM_EMAIL = 'support@fundamentaltrainer.com'
 
