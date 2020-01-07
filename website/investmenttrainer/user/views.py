@@ -57,7 +57,7 @@ class SignUpView(View):
         user = SiteUser.objects.create_user(is_active=False, username=email, email=email, password=password, first_name=first_name, last_name=last_name)
 
         current_site = get_current_site(request)
-        mail_subject = 'Please Confirm Your Email For Investment Trainer'
+        mail_subject = 'Please Confirm Your Email For Fundamental Trainer'
         message = render_to_string('users/acc_active_email.html', {
             'user': user,
             'domain': current_site.domain,

@@ -83,16 +83,6 @@ class ChallengeView(View):
 
         return JsonResponse({"success": True, "correct": correct})
 
-class AllChallenges(View):
-    def get(self, request, *args, **kwargs):
-        challenges = Challenge.objects.all()
-        return render(request, "challenge/list.html", {'challenges': challenges})
-
-class FreeChallenges(View):
-     def get(self, request, *args, **kwargs):
-        challenges = Challenge.objects.filter(is_premium=False)
-        return render(request, "challenge/list.html", {'challenges': challenges})
-
 class OutOfChallengesView(View):
     def get(self, request, *args, **kwargs):
         return render(request, "challenge/out.html", {})
