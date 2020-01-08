@@ -1,0 +1,6 @@
+[08/Jan/2020 04:49:03] WARNING [django.request:228] Not Found: /robots.txt
+[08/Jan/2020 09:29:12] WARNING [django.request:228] Not Found: /robots.txt
+[08/Jan/2020 09:33:43] WARNING [django.request:228] Not Found: /robots.txt
+[08/Jan/2020 09:33:52] WARNING [django.request:228] Not Found: /robots.txt
+[08/Jan/2020 09:38:06] WARNING [django.request:228] Not Found: /robots.txt
+[08/Jan/2020 15:00:55] WARNING [django.request:228] Not Found: /robots.txt

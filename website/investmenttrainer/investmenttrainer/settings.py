@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import logging.config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '^!q=qe@n1erl)@o!hyk+2rjrsx%w&1#ub6raw6&w^@ynghqh_%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['fundamentaltrainer.com', 'www.fundamentaltrainer.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['fundamentaltrainer.com', 'www.fundamentaltrainer.com', 'localhost', '127.0.0.1', '157.245.138.135']
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 MEDIA_ROOT = os.path.join(BASE_DIR, "challenges_folder")
 MEDIA_URL = "/files/"
@@ -161,7 +162,7 @@ if not DEBUG:
             'logfile': {
                 'level':'DEBUG',
                 'class':'logging.handlers.RotatingFileHandler',
-                'filename': "/home/django/fundamentaltrainer/logfile",
+                'filename': "/home/django/trainer/logfile",
                 'maxBytes': 50000,
                 'backupCount': 2,
                 'formatter': 'standard',
@@ -209,7 +210,7 @@ else:
     EMAIL_USE_TLS = True
     EMAIL_HOST = 'smtp.sendgrid.net'
     EMAIL_HOST_USER = 'apikey'
-    EMAIL_HOST_PASSWORD = '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'
+    EMAIL_HOST_PASSWORD = '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'
     EMAIL_PORT = 587
     DEFAULT_FROM_EMAIL = 'support@fundamentaltrainer.com'
 
