@@ -25,7 +25,7 @@ class NotableStock():
             if abs((close_data[end] - close_data[start])/(close_data[start])) > threshold:
                 idx_moments.append(start)
                 date_moments.append(str(close_data.index[start]).split(" ")[0])
-                percent_moments.append(str(round(((close_data[end] - close_data[start])/(close_data[start])) * 100.00),2) + "%")
+                percent_moments.append(str(round(((close_data[end] - close_data[start])/(close_data[start])) * 100.00,2)) + "%")
                 moment_result = 1 if close_data[end] > close_data[start] else 0
                 moment_results.append(moment_result)
                 start += num_trading_days_diff

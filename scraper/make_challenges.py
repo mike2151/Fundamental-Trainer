@@ -5,7 +5,7 @@ from notable_stock import NotableStock
 import shutil
 import argparse
 import sys
-
+import csv
 
 PROCESSED_STOCKS_FILE_NAME = "processed_stocks.json"
 
@@ -41,7 +41,7 @@ def get_nyse_tickers():
     return stock_tickers
 
 def has_ticker_been_processed(ticker):
-    with open(os.path.join(os.getcwd(), "PROCESSED_STOCKS_FILENAME"), "r") as processed_stocks_file:
+    with open(os.path.join(os.getcwd(), PROCESSED_STOCKS_FILE_NAME), "r") as processed_stocks_file:
         json_file = json.loads(processed_stocks_file.read())
         return str(ticker.upper()) in json_file
 
@@ -59,6 +59,10 @@ def mark_ticker_processed(ticker):
         write_file.write(json.dumps(current_json))
         write_file.close()
 
+def is_ticker_name_valid(ticker):
+    if "$" in ticker:
+        return False
+    return True
 
 def get_new_ticker():
     all_list_of_tickers = []
@@ -73,6 +77,10 @@ def get_new_ticker():
     random_ticker = ""
     while True:
         random_ticker = random.choice(random.choice(all_list_of_tickers))
+        if not is_ticker_name_valid(random_ticker):
+            continue
+        if isinstance(random_ticker, list):
+            random_ticker = random_ticker[0]
         if not has_ticker_been_processed(random_ticker):
             break
     return random_ticker

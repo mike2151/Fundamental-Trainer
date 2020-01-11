@@ -129,5 +129,7 @@ class Command(BaseCommand):
         caching.set_value("num_questions", challenge_count)
 
         new_tickers_count = len(set(all_tickers_not_processed))
-        curr_count_tickers = coaching.get_value("num_securities")
+        curr_count_tickers = caching.get_value("num_securities")
+        if curr_count_tickers is None:
+            curr_count_tickers = 0
         caching.set_value("num_securities", new_tickers_count + curr_count_tickers)

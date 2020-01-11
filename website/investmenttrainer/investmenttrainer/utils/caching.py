@@ -19,7 +19,7 @@ def set_value(key, value):
     with open(os.path.join(os.getcwd(), FILE_NAME), "r") as c_file:
         file_contents = c_file.read()
         if len(file_contents) > 2:
-            json_content = json.loads(c_file.read())
+            json_content = json.loads(file_contents)
         c_file.close()
 
     json_content[key] = value
