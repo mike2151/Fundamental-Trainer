@@ -6,25 +6,24 @@ from django.shortcuts import redirect
 from random import shuffle
 from django.http import JsonResponse
 from investmenttrainer.utils import caching
+import random
+from django.db.models import Max
 
 class ChallengeView(View):
     template_name = "challenge/challenge.html"
     def get(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return redirect("/no-auth")
-        challenge = Challenge.objects.get(pk=self.kwargs.get('pk'))
+        challenge = Challenge.objects.get(display_id=self.kwargs.get('pk'))
         challenge_type = challenge.time_label_url
         sections = ["About", "Historic Data", "Technicals", "Financial Statements"]
         return render(request, self.template_name, {"challenge": challenge, 'sections': sections, "challenge_type": challenge_type})
     def post(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            return JsonResponse({"success": False})
-        challenge = Challenge.objects.get(pk=self.kwargs.get('pk'))
+        challenge = Challenge.objects.get(display_id=self.kwargs.get('pk'))
         user_guess = int(request.POST.get("guess", -1))
         if user_guess not in [0,1]:
             return JsonResponse({"success": False})
-
         correct = user_guess == challenge.result
+        if not request.user.is_authenticated:
+            return JsonResponse({"success": True, "correct": correct})
         user = request.user
         # mark completed
         challenge_key = 'premium_ids' if user.is_premium else 'free_ids'
@@ -40,7 +39,7 @@ class ChallengeView(View):
             completed_challenges[challenge_key] = {}
         if challenge_type not in completed_challenges[challenge_key]:
             completed_challenges[challenge_key][challenge_type] = []
-        completed_challenges[challenge_key][challenge_type] =  completed_challenges[challenge_key][challenge_type]  + [challenge.pk]
+        completed_challenges[challenge_key][challenge_type] =  completed_challenges[challenge_key][challenge_type]  + [challenge.display_id]
         user.completed_challenges = json.dumps(completed_challenges)
         # add to stats
         stats = {}
@@ -74,7 +73,7 @@ class ChallengeView(View):
         new_entry = {}
         new_entry["name"] = challenge.stock_ticker + ": " + challenge.window_date.strftime('%m %d, %Y')
         new_entry["correct"] = correct
-        new_entry["id"] = challenge.pk
+        new_entry["id"] = challenge.display_id
 
         history[challenge_key][challenge_type].insert(0, new_entry)
         user.history = json.dumps(history)
@@ -83,15 +82,34 @@ class ChallengeView(View):
 
         return JsonResponse({"success": True, "correct": correct})
 
+class ListChallengeView(View):
+    def get(self, request, *args, **kwargs):
+        challenges = []
+        if (not request.user.is_authenticated) or (not request.user.is_premium):
+            challenges = Challenge.objects.filter(is_premium=False)
+        else:
+            challenges = Challenge.objects.all()
+        return render(request, "challenge/list.html", {"challenges": challenges})
+
 class OutOfChallengesView(View):
     def get(self, request, *args, **kwargs):
         return render(request, "challenge/out.html", {})
 
 class NextChallengeView(View):
     NUM_UPCOMING_CHALLENGES = 10
+    def get_random_challenge(self):
+        max_id = Challenge.objects.all().aggregate(max_id=Max("id"))['max_id']
+        while True:
+            pk = random.randint(1, max_id)
+            challenge = Challenge.objects.filter(pk=pk).first()
+            if challenge:
+                return challenge
     def get(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect("/no-auth")
+            # return a random challenge
+            random_challenge = self.get_random_challenge()
+            next_challenge_id = random_challenge.display_id
+            return redirect("/challenge/" + str(next_challenge_id))
         user = self.request.user
         challenge_key = 'premium_ids' if user.is_premium else 'free_ids'
         challenge_type = self.kwargs.get('challenge_type')
@@ -124,7 +142,7 @@ class NextChallengeView(View):
             curr_idx = 0
             for _ in range(num_challenges_to_add):
                 while True:
-                    challenge = shuffled_challenges[curr_idx].pk
+                    challenge = shuffled_challenges[curr_idx].display_id
                     if not challenge in already_completed_challenges:
                         upcoming_challenges[challenge_key][challenge_type].append(challenge)
                         break

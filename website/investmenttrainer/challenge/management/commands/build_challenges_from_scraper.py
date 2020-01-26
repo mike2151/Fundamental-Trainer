@@ -68,7 +68,7 @@ class Command(BaseCommand):
                                               result = stock_result,
                                               result_amount_percent = stock_percent,
                                               historic_data = historic_content)
-
+                    challenge_obj.save()
                     # financial statements
                     for statement in [str(o) for o in os.listdir(financial_statements_folder) if os.path.isdir(os.path.join(financial_statements_folder,o))]:
                         if statement == "8-K":

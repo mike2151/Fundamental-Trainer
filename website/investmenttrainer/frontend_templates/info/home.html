@@ -78,6 +78,11 @@
                                 <h4 class="stats-label">Estimated Minutes of Challenges</h4>
                             </div>
                         </div>
+			<div class="row">
+				<div class="col-md-12 center"><br><br>
+					<h4>With new challenges added every day!</h4>
+				</div>
+			</div>
                     </div>
                     <div class="tab-pane fade" id="works-content" role="tabpanel"  aria-labelledby="works">
                         <p>To get started completing challenges,</p>
@@ -101,6 +106,7 @@
         {% else %}
             <a href="/login" class="btn btn-xl btn-danger action-first">Login &darr;</a>
             <a href="/signup" class="btn btn-xl btn-success action-second">Signup &uarr;</a>
+            <a href="/challenge/1_year/next_challenge" class="btn btn-xl btn-primary action-third">Try Without An Account &rarr;</a>
         {% endif %}
     </div>
 {% endblock %}

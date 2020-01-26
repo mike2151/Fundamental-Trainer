@@ -198,9 +198,14 @@ AXES_FAILURE_LIMIT = 10
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+#STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, "static"),
+#]
+
+if DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+else:
+    STATIC_ROOT = '/home/django/trainer/website/investmenttrainer/static/'
 
 STATIC_URL = '/static/'
 

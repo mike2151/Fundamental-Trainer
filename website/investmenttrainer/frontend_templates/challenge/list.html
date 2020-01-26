@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css_imports %}
+<style>
+body {
+    background: url(/static/images/bg.svg);
+    background-color: repeat;
+    overflow-x: hidden;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 1.3em;
+}
+
+td, th {
+  border: 1px solid #eeeeee;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(odd) {
+  background-color: #EDF0FC;
+}
+
+tr:nth-child(even) {
+  background-color: rgba(239,131,84, .3);
+}
+</style>
+{% endblock %}
+
+{% block content%}
+    <div class="template-page-section">
+        <h1 class="template-title" id="about">All Challenges</h1><br>
+        <div class="template-main-section">
+	    <table>
+		<tr>
+		    <th>Company</th>
+		    <th>Date</th>
+		    <th>URL</th>
+		</tr>
+		{% for challenge in challenges %}
+		    <tr>
+		        <td>{{challenge.stock_name}}</td>
+		        <td>{{challenge.window_date|date:"M d, Y"}}</td>
+			<td><a href="/challenge/{{challenge.display_id}}">Challenge</a></td>
+		    </tr>
+		{% endfor %}
+	    </table>
+        </div>
+    </div>
+{% endblock %}

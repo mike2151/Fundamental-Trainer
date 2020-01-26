@@ -53,7 +53,8 @@ class NotableStock():
     def get_past_n_days_historic(self, date_moment, n_days):
         # get idx of date moment
         idx = self.idx_moments[self.date_moments.index(date_moment)]
-        return self.historic_data[idx:idx+n_days]
+        min_index = max(idx-n_days, 0)
+        return self.historic_data[min_index:idx]
     def get_company_name(self):
         url = "http://d.yimg.com/autoc.finance.yahoo.com/autoc?query={}&region=1&lang=en".format(self.ticker)
 

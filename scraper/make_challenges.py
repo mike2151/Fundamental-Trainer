@@ -42,14 +42,17 @@ def get_nyse_tickers():
 
 def has_ticker_been_processed(ticker):
     with open(os.path.join(os.getcwd(), PROCESSED_STOCKS_FILE_NAME), "r") as processed_stocks_file:
-        json_file = json.loads(processed_stocks_file.read())
+        file_contents = processed_stocks_file.read()
+        if len(file_contents) < 3:
+            return False
+        json_file = json.loads(file_contents)
         return str(ticker.upper()) in json_file
 
 def mark_ticker_processed(ticker):
     current_json = {}
     with open(os.path.join(os.getcwd(), PROCESSED_STOCKS_FILE_NAME), "r") as processed_stocks_file:
         file_content = processed_stocks_file.read()
-        if len(file_content) == 0:
+        if len(file_content) < 3:
             file_content = "{}"
         current_json = json.loads(file_content)
         processed_stocks_file.close()
@@ -88,19 +91,22 @@ def get_new_ticker():
 if __name__ == "__main__":
     if (len(sys.argv) != 4):
         print("USE THE FOLLOWING FLOW:")
-        print("python3 make_challenges label num_days threshold")
+        print("python3 make_challenges.py label num_days threshold")
         print("EXAMPLE")
-        print("python3 make_challenges '1 Year' 270 .7")
+        print("python3 make_challenges.py '1 Year' 270 .7")
         sys.exit()
     label = sys.argv[1]
     num_days = int(sys.argv[2])
     threshold = float(sys.argv[3])
 
-
-    ticker = get_new_ticker()
-    notable_stock_obj = NotableStock(ticker, num_days, threshold)
-    if not notable_stock_obj.is_stock_notable():
-        quit()
+    ticker = ""
+    notable_stock_obj = None
+    ticker_repeat_cond = True
+    while ticker_repeat_cond:
+        ticker = get_new_ticker()
+        notable_stock_obj = NotableStock(ticker, num_days, threshold)
+        if notable_stock_obj.is_stock_notable():
+            ticker_repeat_cond = False
 
     # make folders and corresponding for each moment
     subfolders = ["statements", "historic_data", "info"]
@@ -172,5 +178,5 @@ if __name__ == "__main__":
 
     if not any_stocks_downloaded:
         shutil.rmtree(stock_path)
-
-    mark_ticker_processed(ticker)
+    else:
+        mark_ticker_processed(ticker)

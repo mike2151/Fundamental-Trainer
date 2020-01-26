@@ -61,6 +61,11 @@ body {
     border-color: #6CC551;
 }
 
+.action-third {
+    background-color: #007BFF;
+    border-color: #007BFF;
+}
+
 .main-section {
     margin-left: auto;
     margin-right: auto;

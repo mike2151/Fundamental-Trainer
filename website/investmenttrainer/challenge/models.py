@@ -1,6 +1,8 @@
 from django.db import models
 import uuid
 from random import randint
+from django.db.models.aggregates import Count
+
 
 def make_uuid():
    return str(uuid.uuid4()).replace("-", "_")
@@ -27,7 +29,7 @@ class Challenge(models.Model):
     time_label_url = models.CharField(max_length=16)
     stock_description = models.TextField()
     window_date = models.DateTimeField()
-    id = models.BigIntegerField(primary_key=True, default=make_pk)
+    display_id = models.BigIntegerField(default=make_pk, unique=True, db_index=True)
     result = models.BooleanField()
     result_amount_percent = models.CharField(max_length=16)
     historic_data = models.TextField()

@@ -16,16 +16,33 @@
   		gtag('js', new Date());
   		gtag('config', 'UA-155720318-1');
 	</script>
-	<script data-ad-client="ca-pub-4542168105220123" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-          <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
+        <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <link href="{% static 'base/base.css' %}" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex.min.css" integrity="sha256-tNBAz64TxO3GEr4eK4wo1lUKT0oium9qL5PqX3Pq8yE=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/css/vex-theme-os.min.css" integrity="sha256-JYiue8IdviZLZRYXRaDAMn/N0H50KoP7jCX/IXvKm34=" crossorigin="anonymous" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vex-js/4.1.0/js/vex.combined.min.js" integrity="sha256-qObWTmBVvSj8Kh/R02uSsIcrO5B2Bow7/taqyDFHqXc=" crossorigin="anonymous"></script>
+	<script src="{% static 'base/show-ads.js' %}"></script>
         {% block css_imports %}
         {% endblock %}
     </head>
     <body>
+      <script>
+	      if (window.runAds1 === undefined || window.runAds22 === undefined || window.runAds45 === undefined || window.runAds77 === undefined || window.runAds89 === undefined || window.runAds90 === undefined) {
+	      vex.defaultOptions.className = 'vex-theme-os';
+	      vex.dialog.open({          
+   		 message: 'Please disable your adblocker before continuing. Our free service is supported by ads.', 
+    		 callback: function (value) {
+ 		       location.reload();
+  		 },
+    		buttons: [
+        		$.extend({}, vex.dialog.buttons.YES, { text: 'I disabled my adblocker' }),
+		    ]
+	      });
+	     }
+      </script>
       <nav class="navbar fixed-top navbar-expand-lg navbar-dark fixed-top base_navbar">
           <div class="container-fluid">
             <a class="navbar-brand brand-section" href="/"><img src="{% static 'images/icon.png' %}" width="24" height="24" style="margin-right: .3vw; margin-bottom: .5vh;">Fundamental Trainer</a>
@@ -37,6 +54,9 @@
                 {% if user.is_authenticated %}
                   <li class="nav-item">
                       <a class="nav-link top-item" href="/dashboard">Dashboard</a>
+                  </li>
+		  <li class="nav-item">
+                      <a class="nav-link top-item" href="/challenges">All Challenges</a>
                   </li>
                   <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle top-item" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -52,6 +72,9 @@
                 {% else %}
                   <li class="nav-item">
                     <a class="nav-link top-item" href="/about" >About</a>
+                  </li>
+		  <li class="nav-item">
+                      <a class="nav-link top-item" href="/challenges">All Challenges</a>
                   </li>
                   <li class="nav-item">
                       <a class="nav-link top-item" href="/login" >Login</a>
