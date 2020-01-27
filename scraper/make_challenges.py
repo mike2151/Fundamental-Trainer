@@ -147,8 +147,28 @@ if __name__ == "__main__":
             for file in files:
                 if file.endswith(".txt"):
                     renamee = os.path.join(subdir, file)
+                    # filter out unneccessary language in file
+                    file_contents = ""
+                    with open(renamee, "r") as read_file:
+                        file_contents = read_file.read()
+                        read_file.close()
+                    try:
+                        file_contents = file_contents[file_contents.lower().index("<html>"):]
+                    except:
+                        try:
+                            file_contents = file_contents[file_contents.lower().index("<text>"):]
+                        except:
+                            pass
+
+                    file_contents = file_contents.replace('<link rel="stylesheet" type="text/css" href="report.css">', '')
+                    file_contents = file_contents.replace('<script type="text/javascript" src="Show.js">', '')
+
+                    with open(renamee, "w") as write_file:
+                        write_file.write(file_contents)
+                        write_file.close()
                     pre, ext = os.path.splitext(renamee)
                     os.rename(renamee, pre + ".html")
+                    
 
         # historic data
         historic_data = notable_stock_obj.get_past_n_days_historic(moment, 1000)
@@ -180,3 +200,4 @@ if __name__ == "__main__":
         shutil.rmtree(stock_path)
     else:
         mark_ticker_processed(ticker)
+        print("PROCESSED " + ticker)

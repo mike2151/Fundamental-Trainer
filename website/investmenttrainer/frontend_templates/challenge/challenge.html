@@ -33,7 +33,7 @@
             <div class="tab-content">
                 {% for section in sections %}
                     {% if section == 'About' %}
-                        <div class="tab-pane fade show active" id="{{section|cut:' '}}-content" role="tabpanel"  aria-labelledby="{{section|cut:' '}}">
+                        <div class="tab-pane show active" id="{{section|cut:' '}}-content" role="tabpanel"  aria-labelledby="{{section|cut:' '}}">
                             <p class="about-label">Stock Ticker:</p>
                             <p class="ticker">{{challenge.stock_ticker}}</h2>
                             <p class="about-label">Modern Stock Description:</p>
@@ -44,7 +44,7 @@
                             <p class="description">{{challenge.stock_industry}}</p>
                         </div>
                     {% elif section == 'Historic Data' %}
-                        <div class="tab-pane fade" id="{{section|cut:' '}}-content" role="tabpanel" aria-labelledby="{{section|cut:' '}}">
+                        <div class="tab-pane" id="{{section|cut:' '}}-content" role="tabpanel" aria-labelledby="{{section|cut:' '}}">
                             <div class="chart-section">
                                 <canvas id="chart" width="1600" height="900"></canvas>
                             </div><br><br>
@@ -52,41 +52,47 @@
                             </div>                            
                         </div>
                     {% elif section == 'Financial Statements' %}
-                        <div class="tab-pane fade" id="{{section|cut:' '}}-content" role="tabpanel" aria-labelledby="{{section|cut:' '}}">
+                        <div class="tab-pane" id="{{section|cut:' '}}-content" role="tabpanel" aria-labelledby="{{section|cut:' '}}">
                             <h2 class="financial-title">Most Recent Financial Statements For {{challenge.window_date|date:"M d, Y" }}</h2> 
                             {% if challenge.statement_8k|length > 0 %} 
                                 <br><h2 class="document-title">8-K</h2>
+				<p class="document-help"><a href="https://www.sec.gov/fast-answers/answersform8khtm.html" target="_blank">What is this?</a></p>
                                 <iframe src="../../files/{{challenge.id}}/8k.html" seamless class="document-holder"></iframe>
                                 <br><a href="../../files/{{challenge.id}}/8k.html" class="btn btn-primary download-btn fixed-btn" download >Download This File</a>
                             {% endif %}
                             {% if challenge.statement_10k|length > 0 %} 
 			    <br><h2 class="document-title">10-K</h2>
+				<p class="document-help"><a href="https://www.sec.gov/fast-answers/answers-form10khtm.html" target="_blank">What is this?</a></p>
                                 <iframe src="../../files/{{challenge.pk}}/10k.html" seamless class="document-holder"></iframe>
                                 <br><a href="../../files/{{challenge.pk}}/10k.html" class="btn btn-primary download-btn fixed-btn" download >Download This File</a>
                             {% endif %}
                             {% if challenge.statement_10q|length > 0  %} 
-			    <br><h2 class="document-title">10-Q</h2>
+			    <br><h2 class="document-title">10-Q</h2> 
+				<p class="document-help"><a href="https://www.sec.gov/fast-answers/answersform10qhtm.html" target="_blank">What is this?</a></p>
                                 <iframe src="../../files/{{challenge.pk}}/10q.html" seamless class="document-holder"></iframe>
                                 <br><a href="../../files/{{challenge.pk}}/10q.html" class="btn btn-primary download-btn fixed-btn" download >Download This File</a>
                             {% endif %}
                             {% if challenge.statement_13_g|length > 0 %} 
                                 <br><h2 class="document-title">13-G</h2>
+				<p class="document-help"><a href="https://www.sec.gov/fast-answers/answerssched13htm.html" target="_blank">What is this?</a></p>
                                 <iframe src="../../files/{{challenge.pk}}/13g.html" seamless class="document-holder"></iframe>
                                 <br><a href="../../files/{{challenge.pk}}/13g.html" class="btn btn-primary download-btn fixed-btn" download >Download This File</a>
                             {% endif %}
                                 {% if challenge.statement_13f_hr|length > 0 %} 
                                 <br><h2 class="document-title">13F-HR</h2>
+				<p class="document-help"><a href="https://www.sec.gov/fast-answers/answers-form13fhtm.html" target="_blank">What is this?</a></p>
                                 <iframe src="../../files/{{challenge.pk}}/13fhr.html" seamless class="document-holder"></iframe>
                                 <br><a href="../../files/{{challenge.pk}}/13fhr.html" class="btn btn-primary download-btn fixed-btn" download >Download This File</a>
                             {% endif %}
                              {% if challenge.statement_sd|length > 0 %} 
                                 <br><h2 class="document-title">SD</h2>
+				<p class="document-help"><a href="https://www.sec.gov/about/forms/formsd.html" target="_blank">What is this?</a></p>
                                 <iframe src="../../files/{{challenge.pk}}/sd.html" seamless class="document-holder"></iframe>
                                 <br><a href="../../files/{{challenge.pk}}/sd.html" class="btn btn-primary download-btn fixed-btn" download >Download This File</a>
                             {% endif %}
                        </div>
                     {% elif section == 'Technicals' %}
-                        <div class="tab-pane fade" id="{{section|cut:' '}}-content" role="tabpanel" aria-labelledby="{{section|cut:' '}}">
+                        <div class="tab-pane" id="{{section|cut:' '}}-content" role="tabpanel" aria-labelledby="{{section|cut:' '}}">
                             <div class="row">
                                 <div class="col-md-6" id="col_1">
                                 </div>
@@ -222,6 +228,7 @@
         }
 	$('.down-btn').prop('disabled', true);
 	$('.up-btn').prop('disabled', true);
+	$('#skip_button').html("Next Challenge &rarr;");
         vex.dialog.confirm({
             message: message,
             callback: function (value) {

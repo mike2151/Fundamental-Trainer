@@ -83,7 +83,8 @@ body {
     padding: 1.4em;
     background: #EDF0FC;
     font-size: 1.3em;
-    min-width: 80vw; 
+    margin-left: auto;
+    margin-right: auto; 
 }
 
 .section-link {
@@ -137,6 +138,15 @@ body {
     }
     .screenshot {
         display: none;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .landing-section {
+	padding: .5em;
+    }
+    .title {
+    	font-size: 3em;
     }
 }
 

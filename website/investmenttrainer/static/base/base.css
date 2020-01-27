@@ -117,8 +117,6 @@ body {
     margin-right: auto;
     text-align:center;
     margin-top: 10vh;
-    max-width: 85vw;
-    background: #FFF;
     padding: 4em;
     border-radius: 20px;
     background: #F7F8FC;
@@ -154,7 +152,7 @@ body {
         max-width: 80vw;
     }
     .template-page-section {
-        max-width: 95vw;
+    	padding: 1em;
     }
     .template-title {
         max-width: 90vw;
