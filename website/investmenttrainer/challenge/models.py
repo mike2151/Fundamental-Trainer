@@ -43,4 +43,4 @@ class Challenge(models.Model):
     statement_sd = models.FileField(blank=True, upload_to=upload_path_handler)
 
     def __str__(self):
-        return self.stock_ticker + ": " + str(self.window_date)
+        return str(self.id) + ": " + self.stock_ticker + ": " + str(self.window_date)

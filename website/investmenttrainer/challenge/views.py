@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from investmenttrainer.utils import caching
 import random
 from django.db.models import Max
+from django.core.paginator import Paginator
 
 class ChallengeView(View):
     template_name = "challenge/challenge.html"
@@ -84,11 +85,21 @@ class ChallengeView(View):
 
 class ListChallengeView(View):
     def get(self, request, *args, **kwargs):
-        challenges = []
+        challenges_list = []
         if (not request.user.is_authenticated) or (not request.user.is_premium):
-            challenges = Challenge.objects.filter(is_premium=False)
+            challenges_list = Challenge.objects.filter(is_premium=False)
         else:
-            challenges = Challenge.objects.all()
+            challenges_list = Challenge.objects.all()
+
+        page = request.GET.get('page', 1)
+        paginator = Paginator(challenges_list, 50)
+        try:
+            challenges = paginator.page(page)
+        except PageNotAnInteger:
+            challenges = paginator.page(1)
+        except EmptyPage:
+            challenges = paginator.page(paginator.num_pages)
+
         return render(request, "challenge/list.html", {"challenges": challenges})
 
 class OutOfChallengesView(View):

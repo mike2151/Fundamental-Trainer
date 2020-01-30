@@ -160,15 +160,53 @@ if __name__ == "__main__":
                         except:
                             pass
 
-                    file_contents = file_contents.replace('<link rel="stylesheet" type="text/css" href="report.css">', '')
-                    file_contents = file_contents.replace('<script type="text/javascript" src="Show.js">', '')
+                    if "13-G" in renamee or "13g" in renamee:
+                        file_contents = file_contents.replace("<TEXT>", "<html>")
+                        file_contents = file_contents.replace("</TEXT>", "</html>")
+                        file_contents = file_contents.replace("\n", "<br>\n")
+
+                    new_file_contents = ""
+                    is_parsing_document = False
+                    temp_document = ""
+                    add_document = True
+                    for line in file_contents.split("\n"):
+                        if is_parsing_document:
+                            if "<FILENAME>" in line:
+                                if ".htm" not in line:
+                                    add_document = False
+                                temp_document += line + "\n"
+                                continue
+                            else:
+                                add_cond = True
+                                if ".css" in line or ".js" in line or ".jpg" in line:
+                                    add_cond = False
+                                if add_cond:
+                                    temp_document += line + "\n"
+
+                                if "</DOCUMENT>" in line:
+                                    if add_document:
+                                        new_file_contents += temp_document
+                                    is_parsing_document = False
+                                    temp_document = ""
+                                    add_document = True
+                                continue
+                        if "<DOCUMENT>" in line:
+                            is_parsing_document = True
+                            temp_document = line
+                            continue
+
+                        add_cond = True
+                        if ".css" in line or ".js" in line or ".jpg" in line:
+                            add_cond = False
+                        if add_cond:
+                            new_file_contents += line + "\n"
 
                     with open(renamee, "w") as write_file:
-                        write_file.write(file_contents)
+                        write_file.write(new_file_contents)
                         write_file.close()
                     pre, ext = os.path.splitext(renamee)
                     os.rename(renamee, pre + ".html")
-                    
+
 
         # historic data
         historic_data = notable_stock_obj.get_past_n_days_historic(moment, 1000)

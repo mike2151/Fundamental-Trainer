@@ -27,9 +27,16 @@ tr:nth-child(odd) {
 tr:nth-child(even) {
   background-color: rgba(239,131,84, .3);
 }
+
+.pagination-nav {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-top: 3vh;
+    display: block;
+}
 </style>
 {% endblock %}
-
 {% block content%}
     <div class="template-page-section">
         <h1 class="template-title" id="about">All Challenges</h1><br>
@@ -37,17 +44,45 @@ tr:nth-child(even) {
 	    <table>
 		<tr>
 		    <th>Company</th>
+		    <th>Challenge Type</th>
 		    <th>Date</th>
 		    <th>URL</th>
 		</tr>
 		{% for challenge in challenges %}
 		    <tr>
 		        <td>{{challenge.stock_name}}</td>
+		        <td>{{challenge.time_label_full}} Forecasting Challenge</td>
 		        <td>{{challenge.window_date|date:"M d, Y"}}</td>
-			<td><a href="/challenge/{{challenge.display_id}}">Challenge</a></td>
+			    <td><a href="/challenge/{{challenge.display_id}}">Challenge</a></td>
 		    </tr>
 		{% endfor %}
 	    </table>
+        
+        {% if challenges.has_other_pages %}
+            <div class="row">
+          <nav aria-label="Page navigation" class="pagination-nav"> 
+            <ul class="pagination">
+            {% if challenges.has_previous %}
+              <li class="page-item"><a class="page-link" href="?page={{ challenges.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link"><span>&laquo;</span></a></li>
+            {% endif %}
+            {% for i in challenges.paginator.page_range %}
+              {% if challenges.number == i %}
+                <li class="page-item active"><a class="page-link" href="#">{{ i }} <span class="sr-only">(current)</span></a></li>
+              {% else %}
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+              {% endif %}
+            {% endfor %}
+            {% if challenges.has_next %}
+              <li class="page-item"><a class="page-link" href="?page={{ challenges.next_page_number }}">&raquo;</a></li>
+            {% else %}
+            <li class="page-item disabled"><a class="page-link"><span>&raquo;</span></a></li>
+            {% endif %}
+          </ul>
+          </nav>
+            </div>
+        {% endif %}
         </div>
     </div>
 {% endblock %}

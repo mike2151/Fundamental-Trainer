@@ -25,8 +25,8 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="overview-content" role="tabpanel"  aria-labelledby="overview">
-                        <p class="secondary-title">Fundamental Trainer gives you the opportunity to get better at Fundamental Analysis</p><br>
-                        <p class="description">By going through history, we generate challenges to analyze a security and make a forecasting decision</p><br>
+                        <p class="secondary-title">Fundamental Trainer gives you the opportunity to get better at Fundamental Analysis for free</p><br>
+                        <p class="description">By going through history, we generate challenges to analyze a security and make a forecasting decision. We add new challenges every day.</p><br>
                         <img class="center screenshot" src="{% static 'images/screenshot.jpg'%}">
                     </div>
                     <div class="tab-pane fade" id="features-content" role="tabpanel"  aria-labelledby="features">
@@ -85,7 +85,7 @@
 			</div>
                     </div>
                     <div class="tab-pane fade" id="works-content" role="tabpanel"  aria-labelledby="works">
-                        <p>To get started completing challenges,</p>
+                        <p>You can complete challenges for free. Or, you can make an account to get most out of Fundamental Trainer:</p>
                         <ol>
                             <li><a href="/signup">Make an account</a></li>
                             <li>Navigate to the dashboard</li>
@@ -106,7 +106,7 @@
         {% else %}
             <a href="/login" class="btn btn-xl btn-danger action-first">Login &darr;</a>
             <a href="/signup" class="btn btn-xl btn-success action-second">Signup &uarr;</a>
-            <a href="/challenge/1_year/next_challenge" class="btn btn-xl btn-primary action-third">Try Without An Account &rarr;</a>
+            <a href="/challenge/1_year/next_challenge" class="btn btn-xl btn-primary action-third">Try Free Without An Account &rarr;</a>
         {% endif %}
     </div>
 {% endblock %}

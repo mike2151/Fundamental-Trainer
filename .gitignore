@@ -4,6 +4,7 @@
 # Custom
 scraper/stocks/*
 website/investmenttrainer/challenges_folder/*
+website/investmenttrainer/investmenttrainer/utils/caching.json
 logfile*
 
 ### Django ###

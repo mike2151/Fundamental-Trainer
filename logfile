@@ -1,4 +1,4 @@
-[27/Jan/2020 23:26:41] ERROR [django.request:228] Internal Server Error: /challenge/8545602686228329/
+[29/Jan/2020 23:00:22] ERROR [django.request:228] Internal Server Error: /challenge/8486199032633036/
 Traceback (most recent call last):
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
     response = get_response(request)
@@ -10,14 +10,15 @@ Traceback (most recent call last):
     return self.dispatch(request, *args, **kwargs)
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
     return handler(request, *args, **kwargs)
-  File "/home/django/trainer/website/investmenttrainer/challenge/views.py", line 15, in get
+  File "/home/django/trainer/website/investmenttrainer/challenge/views.py", line 16, in get
     challenge = Challenge.objects.get(display_id=self.kwargs.get('pk'))
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/query.py", line 417, in get
     self.model._meta.object_name
 challenge.models.Challenge.DoesNotExist: Challenge matching query does not exist.
-[28/Jan/2020 04:24:56] ERROR [django.request:228] Internal Server Error: /challenge/1627336981275282/
+[30/Jan/2020 00:10:59] WARNING [django.request:228] Not Found: /robots.txt
+[30/Jan/2020 00:11:02] ERROR [django.request:228] Internal Server Error: /challenge/3250868010930226/
 Traceback (most recent call last):
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
     response = get_response(request)
@@ -29,15 +30,14 @@ Traceback (most recent call last):
     return self.dispatch(request, *args, **kwargs)
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
     return handler(request, *args, **kwargs)
-  File "/home/django/trainer/website/investmenttrainer/challenge/views.py", line 15, in get
+  File "/home/django/trainer/website/investmenttrainer/challenge/views.py", line 16, in get
     challenge = Challenge.objects.get(display_id=self.kwargs.get('pk'))
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/query.py", line 417, in get
     self.model._meta.object_name
 challenge.models.Challenge.DoesNotExist: Challenge matching query does not exist.
-[28/Jan/2020 05:40:40] WARNING [django.request:228] Not Found: /robots.txt
-[28/Jan/2020 10:33:56] ERROR [django.request:228] Internal Server Error: /challenge/3194238924690287/
+[30/Jan/2020 00:11:10] ERROR [django.request:228] Internal Server Error: /challenge/1933933792145063/
 Traceback (most recent call last):
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
     response = get_response(request)
@@ -49,12 +49,69 @@ Traceback (most recent call last):
     return self.dispatch(request, *args, **kwargs)
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
     return handler(request, *args, **kwargs)
-  File "/home/django/trainer/website/investmenttrainer/challenge/views.py", line 15, in get
+  File "/home/django/trainer/website/investmenttrainer/challenge/views.py", line 16, in get
     challenge = Challenge.objects.get(display_id=self.kwargs.get('pk'))
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
     return getattr(self.get_queryset(), name)(*args, **kwargs)
   File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/query.py", line 417, in get
     self.model._meta.object_name
 challenge.models.Challenge.DoesNotExist: Challenge matching query does not exist.
-[28/Jan/2020 12:05:34] WARNING [django.request:228] Not Found: /remote/login
-[28/Jan/2020 13:54:01] WARNING [django.request:228] Not Found: /index.php
+[30/Jan/2020 00:11:16] ERROR [django.request:228] Internal Server Error: /challenge/3250868010930226/
+Traceback (most recent call last):
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/django/trainer/website/investmenttrainer/challenge/views.py", line 16, in get
+    challenge = Challenge.objects.get(display_id=self.kwargs.get('pk'))
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/query.py", line 417, in get
+    self.model._meta.object_name
+challenge.models.Challenge.DoesNotExist: Challenge matching query does not exist.
+[30/Jan/2020 01:18:17] WARNING [django.request:228] Not Found: /vpns/sweetmemesaremadeofcheese
+[30/Jan/2020 10:13:29] ERROR [django.request:228] Internal Server Error: /challenge/8198589400161388/
+Traceback (most recent call last):
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/django/trainer/website/investmenttrainer/challenge/views.py", line 16, in get
+    challenge = Challenge.objects.get(display_id=self.kwargs.get('pk'))
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/query.py", line 417, in get
+    self.model._meta.object_name
+challenge.models.Challenge.DoesNotExist: Challenge matching query does not exist.
+[30/Jan/2020 12:27:25] ERROR [django.request:228] Internal Server Error: /challenge/2441625739476824/
+Traceback (most recent call last):
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 115, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/core/handlers/base.py", line 113, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 71, in view
+    return self.dispatch(request, *args, **kwargs)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/views/generic/base.py", line 97, in dispatch
+    return handler(request, *args, **kwargs)
+  File "/home/django/trainer/website/investmenttrainer/challenge/views.py", line 16, in get
+    challenge = Challenge.objects.get(display_id=self.kwargs.get('pk'))
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/manager.py", line 82, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+  File "/root/.virtualenvs/venv/lib/python3.6/site-packages/django/db/models/query.py", line 417, in get
+    self.model._meta.object_name
+challenge.models.Challenge.DoesNotExist: Challenge matching query does not exist.
+[30/Jan/2020 19:35:45] WARNING [django.request:228] Not Found: /sitemap.xml
