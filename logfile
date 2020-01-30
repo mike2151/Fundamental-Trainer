@@ -115,3 +115,5 @@ Traceback (most recent call last):
     self.model._meta.object_name
 challenge.models.Challenge.DoesNotExist: Challenge matching query does not exist.
 [30/Jan/2020 19:35:45] WARNING [django.request:228] Not Found: /sitemap.xml
+[30/Jan/2020 21:26:26] WARNING [django.request:228] Not Found: /robots.txt
+[30/Jan/2020 21:29:32] WARNING [django.request:228] Not Found: /robots.txt
